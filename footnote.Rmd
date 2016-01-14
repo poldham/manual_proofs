@@ -1,0 +1,17 @@
+---
+title: "Untitled"
+author: "Paul Oldham"
+date: "16 November 2015"
+output: word_document
+---
+
+Here is an inline note.^[http:www.google.co.uk]
+
+so convert ( to ^[ and ) to ] throughout the documents for the Word version. 
+
+1. Remove [
+2. Remove ]
+3. replace (http with ^[http
+4. replace ) with ]
+5. replace .png] with .png)
+6. replace !_config.yml with ![_config.yml]

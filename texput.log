@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdfetex 2015.11.6)  13 NOV 2015 17:50
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**\nonstopmode \input /Users/pauloldham17inch/Desktop/open_source_master/manual
+_proofs/2015-07-20-ggplot_pizza_patents_part2 copy.md
+
+! Emergency stop.
+<*> ...oofs/2015-07-20-ggplot_pizza_patents_part2 
+                                                  copy.md
+*** (job aborted, file error in nonstop mode)
+
+!  ==> Fatal error occurred, no output PDF file produced!
