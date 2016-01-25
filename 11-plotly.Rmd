@@ -6,9 +6,9 @@ layout: post
 ---
 In this article we provide a quick introduction to the online graphing service [Plotly](http://plotly.com) to create graphics for use in patent analysis. 
 
-Plotly is an online graphing service that allows you to import excel, text and other files for visualisation. It also has API services for R, Python, MATLAB and a Plotly Javascript Library. This means that you can send data directly to Plotly for visualisation. Plots can also be shared with team mates or publicly. 
+Plotly is an online graphing service that allows you to import excel, text and other files for visualisation. It also has API services for R, Python, MATLAB and a Plotly Javascript Library. A recent update to the `plotly` package in R allows you to produce graphics directly in RStudio. This means that you can send data directly to Plotly online for visualisation. Plots can also be shared with team mates or publicly. 
 
-Plotly's great strength is that it produces attractive interactive graphics that can easily be shared with colleagues or made public. It also has a wide variety of graph types including contour and heatmaps. For examples of graphs created with Plotly see the [public gallery](https://plot.ly/feed/). However, we experienced significant difficulty in loading patent data into Plotly and we struggled to draw graphs that would take a couple of minutes if we used Tableau Public as our benchmark. This suggests a need for investment of more time in understanding the expectations of the tool to make best use of the service. It may also suggest that while Plotly can produce excellent graphics, the service may need to invest more time in explaining how ordinary human beings might format their data to meet its expectations. In short, as is often the case with open source tools, the basic documentation could be better. Do not let this put you off. Plotly is potentially a great tool for creating and sharing graphics. In the rest of this article we will help you get started as a basis for exploring Plotly on your own. 
+Plotly's great strength is that it produces attractive interactive graphics that can easily be shared with colleagues or made public. It also has a wide variety of graph types including contour and heatmaps. For examples of graphs created with Plotly see the [public gallery](https://plot.ly/feed/). However, we experienced significant difficulty in loading patent data into Plotly and we struggled to draw graphs that would take a couple of minutes to produce if we used Tableau Public as our benchmark. This suggests a need for investment of more time in understanding the expectations of the tool to make best use of the service. It may also suggest that while Plotly can produce excellent graphics, the service may need to invest more time in explaining how ordinary human beings might format their data to meet its expectations. In short, as is often the case with open source tools, the basic documentation could be better. Do not let this put you off. Plotly is potentially a great tool for creating and sharing graphics. In the rest of this article we will help you get started as a basis for exploring Plotly on your own. 
 
 ###Getting Started with Plotly
 
@@ -26,13 +26,13 @@ When you first arrive you will see a Workspace with a Grid (Plotly's term for a 
 
 In the workspace you will see an Import Icon that provides a range of options for importing data. Don't import anything yet! You can also copy data from a file and paste it into the Grid. 
 
-The reason not to use these options at the moment is that while the data may import fine first time, in other cases it will not. Using the options on this page you will receive no information if an import fails. We also encountered problems with saving data that had been pasted into the worksheet (even where it appeared to work). To avoid potential frustration head over to `Organize`. 
+At the time of writing, the reason not to use these options at the moment is that while the data may import fine first time, in other cases it will not. Using the options on this page you will receive no information if an import fails. We also encountered problems with saving data that had been pasted into the worksheet (even where it appeared to work). To avoid potential frustration head over to `Organize`. 
 
 ![_config.yml](images/plotlyfigs/fig3_import.png)
 
 From the Organize page select the New button and then Upload. Now select your local file. When you upload the file a status message will display and if all goes well then you will see a completed message. If not a red message will display informing you that there has been a problem (how you fix these problems is unclear)
 
-For this experiment we used tow datasets from the Open Source Patent Analytics Manual [data repository](https://github.com/poldham/opensource-patent-analytics/tree/master/2_datasets). When using the Github repository click on the file of interest until you see a `View Raw` message. Then right click to download the data file from there. You can download them for your own use directly from the following links. 
+For this experiment we used two datasets from the Open Source Patent Analytics Manual [data repository](https://github.com/poldham/opensource-patent-analytics/tree/master/2_datasets). When using the Github repository click on the file of interest until you see a `View Raw` message. Then right click to download the data file from there. You can download them for your own use directly from the following links. 
 
 1. [WIPO trends](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/wipo/wipotrends_cleaned.csv?raw=true) application trends by year and with % change
 2. [Pizza patents by country and year](https://github.com/poldham/opensource-patent-analytics/raw/master/2_datasets/pizza_medium_clean/pcy.csv). This is a simple dataset containing counts of patent documents containing the word pizza from [WIPO Patentscope](https://patentscope.wipo.int/search/en/search.jsf) broken down by country and year.
@@ -43,7 +43,7 @@ We experienced a different type of problem with the simple WIPO trends data wher
 
 ##Creating a graphic
 
-We will start with the simple WIPO trends data by opening up that Grid
+We will start with the simple WIPO trends data by opening up that Grid.
 
 ![_config.yml](images/plotlyfigs/fig5_grid.png)
 
@@ -67,17 +67,17 @@ We can then save the plot and use the export button to save the plot in a variet
 
 If we go back to our original WIPO trends data we have a percentage score for the year on year change in patent applications. We might want to show this on a plot with a second axis for the percentage. 
 
-To do that select the percentage as a second item for the y axis.
+To do that in the Grid view select the button "choose as y" in the Growth-rate column to add a second item for the y axis.
 
 ![_config.yml](images/plotlyfigs/fig9_secondy.png)
 
 When we choose Line plot we will now see the two sets of data with the percentage trailing on the bottom. We now need to create a second y axis on the right and assignee the percentage data to that. 
 
-To do this select the Traces icon and a menu will pop up showing the data traces. Select Growth Rate % from the Traces menu. Then where you see Lines/Markers select the dot. This will prevent the percentage scores displaying as a line. 
+To do this select the Traces icon and a menu will pop up showing the data traces. The drop down menu under Traces will show Applications, so, select Growth Rate % from the drop down menu. Then where you see Lines/Markers select the dot. This will prevent the percentage scores displaying as a line. 
 
 ![_config.yml](images/plotlyfigs/fig11_addaxis.png)
 
-Next, select `New Axis/Subplot` and a new screen will pop up. We have some choices here but will simply choose to create a new axis on the right. 
+Next, in the same panel under `Axes` select `New Axis/Subplot` and a new screen will pop up. We have some choices here but will simply choose to create a new axis on the right. 
 
 ![_config.yml](images/plotlyfigs/fig11_addyaxis.png)
 
@@ -93,15 +93,15 @@ Before we go any further let's note that we have a significant minus axis value 
 
 If we wanted to retain these values we would probably want to turn off the second set of grid lines. We would also want to resize the points. 
 
-To turn of the grid lines on the second y axis Click on the Axes icon and then from the `All Axes` drop down select Y Axis 2, then Lines and Grid lines OFF. Also turn the Zero line to off unless you want to retain it. 
+To turn of the grid lines on the second y axis Click on the Axes icon in the main menu on the left. Then from the `All Axes` drop down under Axes select Y Axis 2. Then click the Lines submenu icon and turn Lines and Grid lines to OFF. Also turn the Zero line to off unless you want to retain it. 
 
 ![_config.yml](images/plotlyfigs/fig13_turnoffgrid.png)
 
-To resize the points we need to go back to traces and select Growth Rate from the list of Traces. Then choose the Style tab and change the marker size to something larger such as 8. 
+To resize the points we need to go back to the Traces main menu on the left and select Growth Rate from the list of Traces. Then choose the Style tab and change the marker size to something larger such as 8. 
 
 ![_config.yml](images/plotlyfigs/fig13_resizepoint.png)
 
-We can simply type in the Axis labels and a title into the text boxes provided. By choosing the Legend icon we could turn the legend on or off. Note that while this graph could be seen as self explanatory it may not be for the reader. We can also simply drag the axes labels to a different position. 
+To finish off the graphic we will want to add some labels. We can simply type in the Axis labels and a title into the text boxes provided. By choosing the Legend icon we could turn the legend on or off. Note that while this graph could be seen as self explanatory it may not be for the reader. We can also simply drag the axes labels to a different position. 
 
 It is possible that we would want to remove the negative values from the plot (in that case the values would need to be explained in the accompanying text). To do that select `Axes`, then `Y Axis2` then in `Autorange` choose `Non-negative `to show only values over zero on the plot. 
 
@@ -113,7 +113,7 @@ Finally, to finish off the plot we might want to add annotations using the NOTES
 
 ![_config.yml](images/plotlyfigs/fig13_final_annotated.png)
 
-In this case we have added a couple of markers that may help to understand trends in activity. First, we have a dip in patent applications between 2001 and 2002. One possible explanation here is that this is a knock on effect of the collapse of the dot.com bubble where share prices reached a peak in 2000, declined rapidly and recovered before declining again into 2001. Patent data typically displays lag effects and it is reasonable to think that the decline in application activity from 2001 reflects these wider economic adjustments. Similarly, there is a significant dip in applications between 2008 and 2009 that it appears reasonable to assume reflects the knock on effects of the global economic crisis of 2007-2008. Note here that these are grosso modo way markers. We could choose to add other timeline style events or layer graphics to help understand the potential or actual relationships between wider economic activity and trends in patent applications worldwide. 
+In this case we have added a couple of markers that may help to understand trends in activity. First, we have a dip in patent applications between 2001 and 2002. One possible explanation here is that this is a knock on effect of the collapse of the dot.com bubble where share prices reached a peak in 2000, declined rapidly and recovered before declining again into 2001. Patent data typically displays lag effects and it is reasonable to think that the decline in application activity from 2001 reflects these wider economic adjustments. Similarly, there is a significant dip in applications between 2008 and 2009 that it appears reasonable to assume reflects the knock on effects of the global economic crisis of 2007-2008. Note here that these are crude way markers to assist with interpreting the graphics. We could choose to add other timeline style events or layer graphics to help understand the potential or actual relationships between wider economic activity and trends in patent applications worldwide. 
 
 ###Saving and Sharing Sharing 
 
@@ -135,35 +135,25 @@ In this example we have focused on developing a very simple plot using plotly. I
 
 ##Working with Plotly in R
 
-We are following the instructions for setting up Plotly in R [here](https://plot.ly/r/getting-started/). We will be using [RStudio](https://www.rstudio.com/) for this experiment. Download RStudio for your operating system [here](https://www.rstudio.com/products/RStudio/). For Python try these [installation instructions](https://plot.ly/python/getting-started/) to get started. 
+We are following the instructions for setting up Plotly in R [here](https://plot.ly/r/getting-started/). We will be using [RStudio](https://www.rstudio.com/) for this experiment. Download RStudio for your operating system [here](https://www.rstudio.com/products/RStudio/) and make sure that you also install R at the same time from the link on the RStudio page. For Python try these [installation instructions](https://plot.ly/python/getting-started/) to get started. 
 
-In RStudio first we need to install or load the devtools package. 
+In RStudio first we need to install the plotly package. Either select the Packages tab in RStudio and type plotly and install, or type the following in the console and Enter.  
 
 ```{r eval=FALSE}
-install.packages("devtools")
+install.packages("plotly")
 ```
 
 Then load the library.
 
 ```{r eval=FALSE}
-library(devtools)
-```
-
-The we install the plotly package. 
-
-```{r eval=FALSE}
-devtools::install_github("ropensci/plotly")
+library(plotly)
 ```
 
 When we load the library it will load other required packages, note that you may need to install some of these packages if you don't have them already. Use `install.packages("ggplot2")` and so on in the Console if this happens and then load the libraries.
 
 ```{r eval=FALSE}
-library(plotly) ## loads Plotly and the additional packages it needs.
+library(plotly) #loads Plotly and the additional packages it needs.
 ```
-Loading required package: RCurl
-Loading required package: bitops
-Loading required package: RJSONIO
-Loading required package: ggplot2
 
 We now need to set our credentials for the API. Follow this [link](https://plot.ly/settings/api) to obtain your API key (when logged in to Plotly). Note also that you can obtain a streaming API token on the same page. Streaming will update a graphic from inside RStudio. 
 
@@ -173,13 +163,13 @@ When you have obtained your token then use the following command to register.
 set_credentials_file("your username", "your API key")
 ```
 
-To start plotting we will create an empty plotly object. We will call it pizza plot but you can call it what you like. 
+<!--- cut this text ---> [To start plotting we will create an empty plotly object. We will call it pizza plot but you can call it what you like. 
 
 ```{r eval=FALSE}
-pizzaplot <- plotly()
+pizzaplot <- ggplotly()
 ```
 
-If we were to use class(pizzaplot) we would see that we have an object of "PlotlyClass".
+If we were to use class(pizzaplot) we would see that we have an object of "PlotlyClass".]
 
 Next we will use a quick plot or `qplot` from `ggplot2`. First we will load the pizza patents by country and year dataset from the Github repository using `readr`. First you may need to install the `readr` package and/or lead the library. 
 
@@ -206,6 +196,18 @@ pizza <- qplot(pubyear, n, data = pcy, geom = "line", colour = pubcountry,  xlim
 ```
 
 To create the plot in plotly we need to run the following.
+
+```{r}
+plot_ly(pcy, x = pubyear, y = n, color = pubcountry)
+```
+
+If we do this then plotly will record a warning that the colour palatte has a maximum number of 8 colors. This means that some countries will share a colour. ##To change this xxx##
+
+```{r}
+pizza_plot <- ggplotly(pizza)
+```
+
+
 
 ```{r eval=FALSE}
 response <- pizzaplot$ggplotly(pizza)
