@@ -8,7 +8,7 @@ In this article we provide a quick introduction to the online graphing service [
 
 Plotly is an online graphing service that allows you to import excel, text and other files for visualisation. It also has API services for R, Python, MATLAB and a Plotly Javascript Library. A recent update to the `plotly` package in R allows you to produce graphics directly in RStudio. This means that you can send data directly to Plotly online for visualisation. Plots can also be shared with team mates or publicly. 
 
-Plotly's great strength is that it produces attractive interactive graphics that can easily be shared with colleagues or made public. It also has a wide variety of graph types including contour and heatmaps. For examples of graphs created with Plotly see the [public gallery](https://plot.ly/feed/). However, we experienced significant difficulty in loading patent data into Plotly and we struggled to draw graphs that would take a couple of minutes to produce if we used Tableau Public as our benchmark. This suggests a need for investment of more time in understanding the expectations of the tool to make best use of the service. It may also suggest that while Plotly can produce excellent graphics, the service may need to invest more time in explaining how ordinary human beings might format their data to meet its expectations. In short, as is often the case with open source tools, the basic documentation could be better. Do not let this put you off. Plotly is potentially a great tool for creating and sharing graphics. In the rest of this article we will help you get started as a basis for exploring Plotly on your own. 
+Plotly's great strength is that it produces attractive interactive graphics that can easily be shared with colleagues or made public. It also has a wide variety of graph types including contour and heat maps. For examples of graphs created with Plotly see the [public gallery](https://plot.ly/feed/). However, we experienced significant difficulty in loading patent data into Plotly and we struggled to draw graphs that would take a couple of minutes to produce if we used Tableau Public as our benchmark. This suggests a need for investment of more time in understanding the expectations of the tool to make best use of the service. It may also suggest that while Plotly can produce excellent graphics, the service may need to invest more time in explaining how ordinary human beings might format their data to meet its expectations. In short, as is often the case with open source tools, the basic documentation could be better. Do not let this put you off. Plotly is potentially a great tool for creating and sharing graphics. In the rest of this article we will help you get started as a basis for exploring Plotly on your own. 
 
 ###Getting Started with Plotly
 
@@ -155,23 +155,16 @@ When we load the library it will load other required packages, note that you may
 library(plotly) #loads Plotly and the additional packages it needs.
 ```
 
-We now need to set our credentials for the API. Follow this [link](https://plot.ly/settings/api) to obtain your API key (when logged in to Plotly). Note also that you can obtain a streaming API token on the same page. Streaming will update a graphic from inside RStudio. 
+We now need to set our credentials for the API. When logged in to plotly follow this [link](https://plot.ly/settings/api) to obtain your API key. Note also that you can obtain a streaming API token on the same page. Streaming will update a graphic from inside RStudio. 
 
-When you have obtained your token then use the following command to register.
+When you have obtained your token then use the following command to store your username and the API key in your environment.
 
-```{r eval=FALSE}
-set_credentials_file("your username", "your API key")
+```{r}
+Sys.setenv("poldham" = "me", "7caig7wrwb" = "mykey")
 ```
 
-<!--- cut this text ---> [To start plotting we will create an empty plotly object. We will call it pizza plot but you can call it what you like. 
 
-```{r eval=FALSE}
-pizzaplot <- ggplotly()
-```
-
-If we were to use class(pizzaplot) we would see that we have an object of "PlotlyClass".]
-
-Next we will use a quick plot or `qplot` from `ggplot2`. First we will load the pizza patents by country and year dataset from the Github repository using `readr`. First you may need to install the `readr` package and/or lead the library. 
+Next we will use a quick plot or `qplot` from `ggplot2`. First we will load the pizza patents by country and year dataset from the Github repository using `readr`. First you may need to install the `readr` package and/or load the library. 
 
 ```{r eval=FALSE}
 install.packages("readr")
@@ -183,25 +176,34 @@ Load the library.
 library(readr)
 ```
 
-Now read in the dataset from the Github respository (if you have it downloaded already you could load by inserting the path to your local file inside the quotes).
+Now read in the dataset from the Github respository (if you have it downloaded already you could use Tools and Import Dataset to import the file).
 
 ```{r eval=FALSE}
 pcy <- read_csv("https://github.com/poldham/opensource-patent-analytics/raw/master/2_datasets/pizza_medium_clean/pcy.csv")
 ```
 
-We will now make a quick plot using `qplot` from `ggplot2`. The data is for trends in patent documents mentioning pizza from WIPO Patentscope. We have set a limit to the data for 1970 to 2012 to edit out sparse data and remove the data cliff for recent years. 
+The pcy object contains WIPO Patentscop data on patent documents containing the term pizza by year and country (pcy = pizza country year). 
 
-```{r eval=FALSE}
-pizza <- qplot(pubyear, n, data = pcy, geom = "line", colour = pubcountry,  xlim = c(1970, 2012))
-```
-
-To create the plot in plotly we need to run the following.
+Because patent data generally contains a data cliff for more recent years we will filter out recent years using the dplyr package. 
 
 ```{r}
-plot_ly(pcy, x = pubyear, y = n, color = pubcountry)
+library(dplyr)
+pcy <- filter(pcy, pubyear)
 ```
 
-If we do this then plotly will record a warning that the colour palatte has a maximum number of 8 colors. This means that some countries will share a colour. ##To change this xxx##
+
+To create the plot in plotly we can use `plot_ly()`. 
+
+```{r}
+s <- plot_ly(pcy, x = pubyear, y = n, color = pubcountry, type = "scatter")
+s1 <- layout(s, title = "Pizza Patent trends")
+
+plotly_POST(s)
+```
+
+If we do this then plotly will record a warning that the colour palette has a maximum number of 8 colors. This means that some countries will share a colour. There are 16 countries in the pizza dataset and so we need to change the colour palette to reflect this.
+
+To do this it is helpful to note that on installation plotly installs and then calls the RColorBrewer package (it will display in the Packages list). To see the colour palettes we first tick RColorBrewer in packages (or library(RColorBrewer)) to load it. 
 
 ```{r}
 pizza_plot <- ggplotly(pizza)
