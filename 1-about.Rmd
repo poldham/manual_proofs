@@ -4,6 +4,7 @@ output: html_document
 published: no
 layout: post
 ---
+THIS IS A TEST - AND IT BETTER WORK!! :)
 
 The aim of this project is to provide an overview and practical manual on the use of open source and free software tools for patent analysis. The main outcome of the project will be an Open Source Patent Analytics Manual as a reference guide and a set of electronic resources including walkthroughs, videos and code that can be freely used by anyone. The development of the Manual is supported by the [World Intellectual Property Organisation (WIPO)](http://www.wipo.int/portal/en/) as part of its [Patent Landscapes Project](http://www.wipo.int/patentscope/en/programs/patent_landscapes/) which has produced a range of patent landscape reports to inform policy debates and decision-making on issues of interest to developing countries. The Manual is mainly intended for researchers, patent professionals and patent offices in developing countries. However, we expect that it will be of wider interest to researchers and patent professionals. 
 
