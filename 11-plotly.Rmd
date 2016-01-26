@@ -105,7 +105,7 @@ To finish off the graphic we will want to add some labels. We can simply type in
 
 It is possible that we would want to remove the negative values from the plot (in that case the values would need to be explained in the accompanying text). To do that select `Axes`, then `Y Axis2` then in `Autorange` choose `Non-negative `to show only values over zero on the plot. 
 
-If we wished we could also apply a fit line by choosing the FIT DATA icon. We will choose Linear.  
+If we wished we could also apply a fit line by choosing the Fit Data icon. We will choose Linear.  
 
 ![_config.yml](images/plotlyfigs/fig13_final.png)
 
@@ -137,22 +137,22 @@ In this example we have focused on developing a very simple plot using plotly. I
 
 We are following the instructions for setting up Plotly in R [here](https://plot.ly/r/getting-started/). We will be using [RStudio](https://www.rstudio.com/) for this experiment. Download RStudio for your operating system [here](https://www.rstudio.com/products/RStudio/) and make sure that you also install R at the same time from the link on the RStudio page. For Python try these [installation instructions](https://plot.ly/python/getting-started/) to get started. 
 
-In RStudio first we need to install the plotly package. Either select the Packages tab in RStudio and type plotly and install, or type the following in the console and Enter.  
+In RStudio first we need to install the plotly package. We will also install some other helpful packages for working with data in R. Either select the Packages tab in RStudio and type plotly and install, or type the following in the console and Enter.  
 
 ```{r eval=FALSE}
 install.packages("plotly")
+install.packages("readr") # import csv files
+install.packages("dplyr") # wrangle data
+install.packages("tidyr") # tidy data
 ```
 
-Then load the library.
+Then load the libraries.
 
-```{r eval=FALSE}
+```{r cache=TRUE, eval=FALSE}
 library(plotly)
-```
-
-When we load the library it will load other required packages, note that you may need to install some of these packages if you don't have them already. Use `install.packages("ggplot2")` and so on in the Console if this happens and then load the libraries.
-
-```{r eval=FALSE}
-library(plotly) #loads Plotly and the additional packages it needs.
+library(readr)
+library(dplyr)
+library(tidyr)
 ```
 
 We now need to set our credentials for the API. When logged in to plotly follow this [link](https://plot.ly/settings/api) to obtain your API key. Note also that you can obtain a streaming API token on the same page. Streaming will update a graphic from inside RStudio. 
@@ -160,82 +160,116 @@ We now need to set our credentials for the API. When logged in to plotly follow 
 When you have obtained your token then use the following command to store your username and the API key in your environment.
 
 ```{r}
-Sys.setenv("poldham" = "me", "7caig7wrwb" = "mykey")
+Sys.setenv("myusername" = "me", "API_key" = "mykey")
 ```
 
+Next we will load a dataset of WIPO Patentscope data containing data on patent documents containing the word pizza organised by country and year (pcy = pizza, country, year).
 
-Next we will use a quick plot or `qplot` from `ggplot2`. First we will load the pizza patents by country and year dataset from the Github repository using `readr`. First you may need to install the `readr` package and/or load the library. 
-
-```{r eval=FALSE}
-install.packages("readr")
-```
-
-Load the library.
-
-```{r eval=FALSE}
+```{r cache=TRUE}
 library(readr)
-```
-
-Now read in the dataset from the Github respository (if you have it downloaded already you could use Tools and Import Dataset to import the file).
-
-```{r eval=FALSE}
 pcy <- read_csv("https://github.com/poldham/opensource-patent-analytics/raw/master/2_datasets/pizza_medium_clean/pcy.csv")
 ```
 
-The pcy object contains WIPO Patentscop data on patent documents containing the term pizza by year and country (pcy = pizza country year). 
+Because patent data generally contains a data cliff for more recent years we will filter out recent years using `filter()` from the `dplyr` package by specifying a year that is less than or equal to 2012. To take out the long tail of limited historic data we will specify greater than or equal to 1990. 
 
-Because patent data generally contains a data cliff for more recent years we will filter out recent years using the dplyr package. 
-
-```{r}
+```{r filter, warning=FALSE}
 library(dplyr)
-pcy <- filter(pcy, pubyear)
+pcy <- filter(pcy, pubyear >= 1990, pubyear <= 2012)
 ```
 
+To create the plot in plotly we can use `plot_ly()`. We will specify the dataset, the x and y axis and then the color for the country data. We will then add a title using the `%>%` pipe operator for "this" then "that". To specify the visual we want we specify the mode as "lines"" (try "markers" for a scatter plot).
 
-To create the plot in plotly we can use `plot_ly()`. 
+```{r plot_s}
+library(plotly)
+s <- plot_ly(pcy, x = pubyear, y = n, color = pubcountry, mode = "lines") %>%
+  layout(title = "Patenscope Pizza Patent Trends")
+s
+```
 
-```{r}
-s <- plot_ly(pcy, x = pubyear, y = n, color = pubcountry, type = "scatter")
-s1 <- layout(s, title = "Pizza Patent trends")
+plotly will record a warning on the number of colours but we can now clearly see a plot. If we have entered our credentials for the API (above) we can also push the graph online along with the data for further editing or to share with others. 
 
+```{r post}
 plotly_POST(s)
 ```
 
-If we do this then plotly will record a warning that the colour palette has a maximum number of 8 colors. This means that some countries will share a colour. There are 16 countries in the pizza dataset and so we need to change the colour palette to reflect this.
+As this makes clear, it is easy to generate a plotly graph in R but we will want to dig into plotly for R in a little more detail. 
 
-To do this it is helpful to note that on installation plotly installs and then calls the RColorBrewer package (it will display in the Packages list). To see the colour palettes we first tick RColorBrewer in packages (or library(RColorBrewer)) to load it. 
+To change colours it is helpful to note that `plotly` installs and then calls the `RColorBrewer` package (it will display in the Packages list). To see the colour palettes we first tick RColorBrewer in Packages (or library(RColorBrewer)) to load it. 
+
+To view the available palettes we can use.
 
 ```{r}
-pizza_plot <- ggplotly(pizza)
+library(RColorBrewer)
+brewer.pal.info
 ```
 
+This indicates that the maximum number of colours in a palette is Set2. Let's try Set3 for illustration. 
 
+```{r}
+s1 <- plot_ly(pcy, x = pubyear, y = n, color = pubcountry, colors = "Set3", mode = "lines") %>%
+  layout(title = "Pizza Patent trends") %>%
+  print()
+```
+
+As we can see this will then produce a plot with the color palette, plotly will show as warning that the base palette ("Set2") has 8 colours but will then specify that it is displaying the palette that we asked. 
+
+In practice we would want to break this plot into subplots for two reasons. First, the data ranges vary widely between countries and second, it is better to ensure that colours are distinct. 
+
+To do this we need to run some calculations on the data. To do that we will use functions from `dplyr` to quickly tally the data and then to arrange it in descending order. Then we will add the data to discreet groups based on the scores.
+
+```{r}
+library(dplyr)
+library(tidyr)
+total <- tally(group_by(pcy, pubcode)) %>%
+  arrange(desc(n)) %>%
+  mutate(group = ntile(n, 3))
+total
+```
+
+When we view total we now see that countries have been divided into 3 groups based on their number of records. Groups 1 and 2 are unlikely to provide a meaningful graph and group 1 in particular could be dropped. However, we could usefully display this information as a bar chart using plotly. 
+<!---rename pubcode and n--->
+```{r}
+total_bar <- plot_ly(total, x = pubcode , y = n, type = "bar")
+total_bar
+```
+
+Note here that we have selected bar as the type.
+
+Having divided our data into three groups it would now be useful to plot them separately. Here we face the problem that our original data in pcy displays values by year while total displays the sum and group. We need first to add the group identifiers to the pcy table. To do that we will first modify total to drop the count of records in n using the dplyr `select()` function. Then we will use `left_join()` to join the total and total_group tables together. Note that the function will use the shared field "pubcountry".
 
 ```{r eval=FALSE}
-response <- pizzaplot$ggplotly(pizza)
+total_group <- select(total, pubcountry, group)
 ```
 
-Let's go and visit it online.
+Then we join the two tables
 
 ```{r eval=FALSE}
-response$url
+total <- left_join(pcy, total_group)
 ```
 
-You will now see an online plot that should look like this.
 
-![_config.yml](images/plotlyfigs/fig14_R_online.png)
+The next step is to generate a set of three plots corresponding with our three groups. We will call them pizza3, pizza2 and pizza1 and use the full publication country name. 
 
-If we hover over the data points we will also see the data appear by country (to add a legend, edit graph and then Legends)
+```{r pizza123, eval=TRUE}
+pizza3 <- filter(total, group == 3) %>%
+  plot_ly(x = pubyear, y = n, color = pubcountry, type = "lines", mode = "lines")
+pizza2 <- filter(total, group == 2) %>%
+  plot_ly(x = pubyear, y = n, color = pubcountry, type = "lines", mode = "lines")
+pizza1 <- filter(total, group == 1) %>%
+  plot_ly(x = pubyear, y = n, color = pubcountry, type = "lines", mode = "lines")
+```
 
-![_config.yml](images/plotlyfigs/fig15_R_interactivepng.png)
-
-Note here that the data table is also provided under the Data tab.
-
-![_config.yml](images/plotlyfigs/fig15_R_data.png)
+We now have a total of four draft plots, total_bar and pizza 3 to 1 for our groups. Plotly will allow us to display plots side by side. Note that this can create quite a crunched display in RStudio and is best viewed online at full size. For illustration we will use the bar chart we created earlier and trends for the top ranking countries. 
+<!---give names to subplots--->
+```{r side by side, eval=FALSE}
+sub <- subplot(total_bar, pizza3)
+sub
+plotly_POST(sub)
+```
 
 We can also share the graph via social media, download the data, or edit the graph. Note that the default setting for a graph sent via the API appears to be public (with no obvious way to change that).
 
-It is here that Plotly's potential importance as a tool for sharing data and graphics becomes apparent. 
+It is here that Plotly's potential importance as a tool for sharing data and graphics becomes apparent and recent updates to the R package and the introduction of dashboards demonstrates ongoing improvements to this new service. 
 
 ##Round Up
 
