@@ -1,4 +1,6 @@
----THIS IS YET AGAIN ANOTHER TEST - DAY 2. I re-cloned the repository on Desktop, deleted and reopened the project from R and now I am trying this file as i wasnt sure i got the collaborator status on thsi one or the "paul " one. I will try both, hoping that SOMETHING works :)
+---THIS IS YET AGAIN ANOTHER TEST - DAY 2.
+will this finally work????
+I re-cloned the repository on Desktop, deleted and reopened the project from R and now I am trying this file as i wasnt sure i got the collaborator status on thsi one or the "paul " one. I will try both, hoping that SOMETHING works :)
 
 title: "About the Open Source Patent Analytics Manual Project"
 output: html_document
