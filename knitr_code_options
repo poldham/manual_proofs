@@ -1,0 +1,10 @@
+http://yihui.name/knitr/options/#chunk_options
+
+fig.show: ('asis'; character) how to show/arrange the plots; four possible values are
+asis: show plots exactly in places where they were generated (as if the code were run in an R terminal);
+hold: hold all plots and output them in the very end of a code chunk;
+animate: wrap all plots into an animation if there are mutiple plots in a chunk;
+hide: generate plot files but hide them in the output document
+
+
+fig.align: ('default'; character) alignment of figures in the output document (possible values are left, right and center; default is not to make any alignment adjustments); note that for Markdown output, forcing figure alignments will lead to the HTML tag <img /> instead of the original Markdown syntax ![](), because Markdown does not have native support for figure alignments (see #611)

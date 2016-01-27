@@ -1,6 +1,6 @@
 ---
 title: 'Graphing Patent Data in R: Part 1'
-output: html_document
+output: word_document
 published: yes
 layout: post
 ---
