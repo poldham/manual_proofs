@@ -4,8 +4,8 @@ output: html_document
 published: yes
 layout: post
 ---
-```{r echo=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, tidy=TRUE, fig.width=12, fig.height=8, fig.align = "center", echo=TRUE, warning=FALSE, message=FALSE)
 ```
 
 This is Part 2 of an article introducing R for patent analytics that focuses on visualising patent data in R using the ggplot2 package. 

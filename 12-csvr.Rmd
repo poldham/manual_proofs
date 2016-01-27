@@ -4,7 +4,10 @@ output: html_document
 published: no
 layout: post
 ---
-
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, tidy=TRUE, fig.width=12, fig.height=8, fig.align = "center",
+                      echo=TRUE, warning=FALSE, message=FALSE)
+```
 As part of the WIPO Manual on Open Source Patent Analytics project we will be working with patent data in R using [RStudio](http://www.rstudio.com). If you do not have a copy of RStudio follow the simple instructions for installing on your platform [here](http://www.rstudio.com/products/rstudio/download/). There are lots of resources on the site to help you get started including [online learning](http://www.rstudio.com/resources/training/online-learning/), [videos](http://www.rstudio.com/resources/webinars/), and [cheatsheets](http://www.rstudio.com/resources/cheatsheets/). The excellent [R-Bloggers site](http://www.r-bloggers.com) will demonstrate why it is worth investing time in R when working with patent data.  
 
 Comma separated value files (or .csv) files are one of the most common and useful ways for sharing data. This includes patent data. 
