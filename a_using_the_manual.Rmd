@@ -1,0 +1,18 @@
+---
+title: "Using the Manual"
+author: "Paul Oldham"
+date: "8 February 2016"
+output: html_document
+---
+
+The WIPO Open Source Patent Analytics Manual is available in three main formats. 
+
+1. The printed version of the Manual (available as a single electronic file or in hard copy)
+2. As an website containing access to the datasets used in the Manual and additional articles. 
+3. As a Github repository containing all chapters, online articles, datasets and additional materials for free download. 
+
+The world of free and open source software is fast moving with new software being created and new versions of existing software being released on a regular basis. This can make it difficult to keep up. The printed version of the Manual contains the core chapters of the Manual but we also recommend using the electronic version on the Manual website. The website contains the same material but will be periodically updated to reflect important changes with existing tools and new developments of relevance to patent analytics. The open access Github repository is the home directory for the manual and source of the printed and website versions. 
+
+To keep track of developments with the Manual sign up for a Github account, download Github Desktop and then create a clone of the Manual repository. It is easier than it sounds and will give you access to all Manual materials and any updates. 
+
+The Manual was written in Rmarkdown using RStudio and then exported to other formats. The website is Jekyll based and uses [Barry Clark's free Jekyll Now template](https://github.com/barryclark/jekyll-now).  
