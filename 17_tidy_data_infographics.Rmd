@@ -32,7 +32,7 @@ When working in RStudio it is good practice to work with projects. This will kee
 
 R works using packages (libraries) and there are around 7,490 of them for a whole range of purposes. We will use just a few of them. To install a package we use the following. Copy and paste the code into the Console and press enter.  
 
-```{r eval=FALSE}
+```{r install, eval=FALSE}
 install.packages("readr") # read in .csv files `readxl` for excel files
 install.packages("dplyr") # wrangle data
 install.packages("tidyr") # tidy data
@@ -60,7 +60,7 @@ We will work with the `pizza_medium_clean` dataset in the online [Github Manual 
 
 We can use the easy to use `read_csv()` function from the `readr` package to quickly read in our pizza data directly from the Github repository. Note the `raw` at the beginning of the filename. 
 
-```{r}
+```{r read}
 pizza <- read_csv("https://raw.githubusercontent.com/poldham/opensource-patent-analytics/master/2_datasets/pizza_medium_clean/pizza.csv")
 ```
 
@@ -68,7 +68,7 @@ pizza <- read_csv("https://raw.githubusercontent.com/poldham/opensource-patent-a
 
 As an alternative to importing directly from Github download the file and enter the path in quotes (you must use the full path, e.g. C: etc.). For additional arguments (controls) look up the help for the function using `?read_csv`.
 
-```{r eval=FALSE}
+```{r localread, eval=FALSE}
 pizza_read <- read_csv("yourfilepath")
 ```
 
@@ -88,7 +88,7 @@ pizza
 
 3. Use the `View()` command (for data.frames and tables)
 
-```{r eval=FALSE}
+```{r View, eval=FALSE}
 View(pizza)
 ```
 
@@ -98,7 +98,7 @@ If possible use the View() command or environment. The difficulty with the conso
 
 We often want to know what type of object we are working with and more details about the object so we know what to do later. Here are some of the most common commands for obtaining information about objects.
 
-```{r eval=FALSE}
+```{r type, eval=FALSE}
 class(pizza) ## type of object
 names(pizza) ## names of variables
 str(pizza) ## structure of object
@@ -170,7 +170,7 @@ pizza_total <- rename(pizza_total, "pubyear" = publication_year, publications = 
 
 Using the `qplot()` function in `ggplot2` we can now draw a quick line graph. Note that qplot() is unusual in R because the data (pizza_total) appears after the coordinates. We will specify that we want a line using `geom =` (if geom is left out it will be a scatter plot). This will give us an idea of what our plot might look like in our infographic and actions we might want to take on the data.  
 
-```{r}
+```{r qplot}
 qplot(x = pubyear, y = publications, data = pizza_total, geom = "line")
 ```
 
@@ -190,7 +190,7 @@ In contrast with `select()` which works with columns, `filter()` in `dplyr` work
 
 One strength of `filter()` in `dplyr` is that it is easy to filter on multiple values in the same expression (unlike the very similar filter function in base R). The use of `filter()` will also remove the 30 records where the year is recorded as NA (Not Available). We will write this file to disk using the simple `write_csv()` from `readr`. To use `write_csv()` we first name our data (`pizza_total`) and then provide a file name with a .csv extension. In this case and other examples below we have used a descriptive file name bearing in mind that Windows systems have limitations on the length and type of characters that can be used in file names. 
 
-```{r}
+```{r pizza_total}
 pizza_total <- filter(pizza_total, pubyear >= 1990, pubyear <= 2012)
 write_csv(pizza_total, "pizza_total_1990_2012.csv")
 pizza_total
@@ -208,7 +208,7 @@ We will create a new temporary object `df` to demonstrate this.
 
 1. The standard way
 
-```{r}
+```{r standard}
 df <- select(pizza, publication_number, publication_year)
 df <- mutate(df, n = sum(publication_number = 1))
 df <- count(df, publication_year, wt = n)
@@ -227,7 +227,7 @@ We can save quite a lot of typing and reduce the complexity of the code using th
 
 Pipes are now a very popular way of writing R code because they simplify writing R code and speed it up. The most popular pipe is `%>%` which means "this" then "that". In this case we are going to create a new temporary object `df1` by first applying select to pizza, then mutate, count, rename and filter. Note that we only name our dataset once (in `select()`) and we do not need to keep overwriting the object. 
 
-```{r}
+```{r piped}
 df1 <- 
   select(pizza, publication_number, publication_year) %>%
   mutate(n = sum(publication_number = 1)) %>%
@@ -265,7 +265,7 @@ We need to make sure that any data that we generate from our raw dataset matches
 
 To handle this we will use `filter()` to create a new baseline dataset with an unambiguous name.
 
-```{r}
+```{r limited}
 pizza_1990_2012 <- rename(pizza, "pubyear" = publication_year) %>%
   filter(pubyear >= 1990, pubyear <= 2012) %>%
   print()
@@ -283,7 +283,7 @@ However, in some cases, such as infogr.am our visualisation software will expect
 
 As above we will start off by using select() to create a table with the fields that we want. We will then use mutate() to add a numeric field and then count up that data. To illustrate the process run this code (we will not create an object). 
 
-```{r}
+```{r demo}
 select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %>%
   mutate(n = sum(publication_number = 1)) %>% 
   count(publication_country_name, pubyear, wt = n) %>%
@@ -294,7 +294,7 @@ When we run this code we will see the results in long format. We now want to tak
 
 In using spread note that it takes a data argument (`pizza_1990_2012`), a key (`publication_country_name`), and value column (`n`). We are using pipes so the data only needs to be named in the first line. For additional arguments see ?spread(). 
 
-```{r}
+```{r country_totals}
 country_totals <- select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %>%
   mutate(n = sum(publication_number = 1)) %>% 
   count(publication_country_name, pubyear, wt = n) %>%
@@ -306,7 +306,7 @@ We now have data in wide format.
 
 In some cases, such as infogr.am, visualisation software may expect the country names as rows and the year as column names. We can modify our call to `spread()` by replacing the `publication_country_name` with `pubyear`. Then we will write the data to disk for use in our infographic.  
 
-```{r}
+```{r write country totals}
 country_totals <- select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %>%
   mutate(n = sum(publication_number = 1)) %>% 
   count(publication_country_name, pubyear, wt = n) %>%
@@ -317,7 +317,7 @@ write_csv(country_totals, "pizza_country_1990_2012.csv")
 
 To restore the data to long format we would need to use `gather()` as the counterpart to `spread()`. gather takes a dataset, a key for the name of the column we want to gather the countries into, a value for the numeric count (in this case n), and finally the positions of the columns to gather in.  Note here that we need to look up the column positions in `country_totals` (e.g. using `View()`).
 
-```{r}
+```{r gathering country totals}
 gather(country_totals, country, n, 2:17) %>%
   print()
 ```
@@ -350,7 +350,7 @@ The first option we will try is to separate the `applicants_cleaned` field into 
 
 In the first step we use the tidyr `separate()` function. Ideally the field we want to separate is the first column because we will be using the numeric positions of the columns. In the case of the pizza1 data the `applicants_cleaned` field is already the first column. If we wanted to move a column to the first position we could use select() as follows. To illustrate this we will create two new temporary objects, p1 and p2.
 
-```{r}
+```{r selecting_columns}
 p1 <- select(pizza, 2:31, 1) #moves column 1 to the end (column 31)
 p2 <- select(p1, 31, 1:30) #moves column 31 to the first column
 ```
@@ -359,7 +359,7 @@ If we print p1 to the console `applicants_cleaned` will now appear as the final 
 
 Next we use `separate()` on `pizza_1990_2012`. This is followed by the unquoted name of the column we want to separate and the number of columns we want to separate the applicants into (1:30). Here we have chosen an arbitrary 30 columns. We then specify the separator with the `;`. The next two arguments are for what to do with any extra data and the direction to fill cells. We use `fill = "right"` because `separate()` will throw an error if the cells do not divide into the same number of pieces. 
 
-```{r}
+```{r pizza1}
 pizza1 <- separate(pizza_1990_2012, applicants_cleaned, 1:30, sep = ";", extra = "merge", fill = "right") %>%
   print()
 ```
@@ -372,7 +372,7 @@ Note that while this works well there can be some inconsistency where the underl
 
 The second step is to use the `tidyr()` function `gather()`. This will gather the columns we specify into rows. `gather()` involves specifying a key value pair. We can introduce the key (a numeric value) if we don't have one by specifying a column name and gather will create it for us. In this case we use `n`. Then we specify the value - the column that we want to gather the names into - we will call that applicants. Then we specify the columns to gather by their numeric position. Finally, where there are NA (Not Available) values we specify `na.rm = TRUE` to remove them. 
 
-```{r}
+```{r gather_pizza1}
 pizza1 <- gather(pizza1, n, applicants, 1:30, na.rm = TRUE) %>%
  print()
 ```
@@ -383,7 +383,7 @@ We now have a data.frame with 12,133 rows and 32 columns. The reason for this is
 
 However, if we now inspect the bottom of the column by subsetting into it using `$` we will see that a lot of the names have a leading whitespace space. This results from the separate exercise where the `;` is actually `;space`. Take a look at the last few rows of the data using `tail()`. 
 
-```{r}
+```{r tail}
 tail(pizza1$applicants, 10)
 ```
 
@@ -391,13 +391,13 @@ We can address this problem using a function from the `stringr` package `str_tri
 
 Because we are seeking to modify an existing column (not to create a new vector or data.frame) we will use `$` to select the column and as the data for the `str_trim()` function. That will apply the function to the applicants column in pizza1. 
 
-```{r}
+```{r str_trim}
 pizza1$applicants <- str_trim(pizza1$applicants, side = "both")
 ```
 
 We can tie the steps so far together using pipes into the following simpler code that we will put in the temporary object pizza4. 
 
-```{r}
+```{r tie_steps}
 pizza2 <- rename(pizza, "pubyear" = publication_year) %>%
   filter(pubyear >= 1990, pubyear <= 2012) %>%
   separate(applicants_cleaned, 1:30, sep = ";", extra = "merge", fill = "right") %>% 
@@ -418,7 +418,7 @@ The final name in the concatenated applicants name will not possess a separator 
 
 To load this function simply select the text and copy it into your console.
 
-```{r counting names}
+```{r counting_sep}
 library(stringr)
 library(dplyr)
 field_count <- function(data, col = "", sep = "[^[:alnum:]]+") {
@@ -431,7 +431,7 @@ field_count <- function(data, col = "", sep = "[^[:alnum:]]+") {
 
 Head to the Environment tab and you should see it under Functions. Next run the code as follows. Note that we are running the count on our base dataset pizza. 
 
-```{r}
+```{r field_count}
 n <- field_count(pizza_1990_2012, "applicants_cleaned", sep = ";")
 ```
 
@@ -445,7 +445,7 @@ Remember that the `gather()` function requires a key value pair. This introduced
 
 We will save this in a new object called applicants.
 
-```{r}
+```{r applicants}
 applicants <- 
   separate(pizza_1990_2012, applicants_cleaned, 1:n, sep = ";", extra = "merge", fill = "right") %>%
   gather(n, applicants, 1:n, na.rm = TRUE) %>%
@@ -459,7 +459,7 @@ We will want to create a plot with the applicants data in our infographic softwa
 
 In this code we will simply print the applicants ranked in descending order. The second to last line of the code provides a filter on the number of records. This can be changed after inspecting the data. 
 
-```{r}
+```{r applicant_count}
 library(tidyr)
 library(dplyr)
 applicant_count <- select(applicants, applicants, publication_number) %>%
@@ -472,7 +472,7 @@ applicant_count <- select(applicants, applicants, publication_number) %>%
 
 If we inspect applicant count using `View(applicant_count)` we have 6,178 rows. That is far too many to display in an infographic. So, next we will filter the data on the value for the top ten (64). Then we will write the data to a .csv file using the simple `write_csv()` (as an alternative use write.csv() with the appropriate arguments).
 
-```{r}
+```{r applicant_count1}
 applicant_count <- select(applicants, applicants, publication_number) %>%
   mutate(n = sum(publication_number = 1)) %>%
   count(applicants, wt = n) %>%
@@ -490,7 +490,7 @@ As part of our infographic we will want to explore this intriguing result in mor
 
 As we saw above, while `select()` functions with columns, `filter()` from `dplyr` works with rows. Here we will filter the data to select the rows in the applicants column that contain Google Inc and then write that to a .csv for use in our infographic.
 
-```{r}
+```{r google}
 google <- filter(applicants, applicants == "Google Inc")
 write_csv(google, "google_1990_2012.csv")
 ```
@@ -513,7 +513,7 @@ For ease of presentation in an infographic we will use the `ipc_class` field. Fo
 
 To generate the table we can use a generic function based on the code developed for dealing with the applicants data. 
 
-```{r}
+```{r generic_function}
 library(dplyr)
 library(tidyr)
 library(stringr)
@@ -543,7 +543,7 @@ The `patent_count()` function ties together the `field_count()` and the code we 
 
 To generate the `ipc_class` data we can do the following and then write the file to .csv. Note that we have set the number of results `n_results` to 10. 
 
-```{r}
+```{r pizza_class}
 pizza_ipc_class <- patent_count(data = pizza_1990_2012, col = "ipc_class", col1 = "publication_number", n_results = 10, sep = ";")
 write_csv(pizza_ipc_class, "pizza_ipcclass_1990_2012.csv")
 ```
@@ -552,14 +552,14 @@ Note that this dataset is based on the main `pizza_1990_2012` dataset (including
 
 This problem does not apply in the case of our Google data because the only applicant listed in that data is Google (excluding co-applicants). We can therefore safely use the Google dataset to identify the IPC codes. 
 
-```{r}
+```{r google_class}
 google_ipc_class <- patent_count(data = google, col = "ipc_class", col1 = "publication_number", n_results = 10, sep = ";")
 write_csv(google_ipc_class, "google_ipcclass_1990_2012.csv")
 ```
 
 There are only 7 classes and as we might expect they are dominated by computing. We might want to dig into this in a little more detail and so let's also create an IPC subclass field.
 
-```{r}
+```{r google_subclass}
 google_ipc_subclass <- patent_count(data = google, col = "ipc_subclass_detail", col1 = "publication_number", n_results = 10, sep = ";")
 write_csv(google_ipc_subclass, "google_ipcsubclass_1990_2012.csv")
 ```
@@ -570,14 +570,14 @@ We now have the data on technology areas that we need to understand our data. Th
 
 We will be using data from words and phrases in the titles of patent documents for use in a word cloud in our infographic. It is possible to generate this type of data in R directly using the `tm` and `NLP` packages. Our pizza dataset already contains a title field broken down into phrases using Vantagepoint software and so we will use that. We will use the field `title_nlp_multiword_phrases` as phrases are generally more informative than individual words. Once again we will use our general `patent_count()` function although experimentation may be needed with the number of phrases that visualise well in a word cloud. 
 
-```{r}
+```{r pizza_phrases}
 pizza_phrases <- patent_count(data = pizza_1990_2012, col = "title_nlp_multiword_phrases", col1 = "publication_number", n_results = 15, sep = ";")
 write_csv(pizza_phrases, "pizza_phrases_1990_2012.csv")
 ```
 
 Now we do the same with the Google data.
 
-```{r}
+```{r google_phrases}
 google_phrases <- patent_count(data = google, col = "title_nlp_multiword_phrases", col1 = "publication_number", n_results = 15, sep = ";")
 write_csv(google_phrases, "google_phrases_1990_2012.csv")
 ```
