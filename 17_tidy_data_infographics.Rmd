@@ -393,7 +393,6 @@ Because we are seeking to modify an existing column (not to create a new vector 
 
 ```{r}
 pizza1$applicants <- str_trim(pizza1$applicants, side = "both")
-
 ```
 
 We can tie the steps so far together using pipes into the following simpler code that we will put in the temporary object pizza4. 
