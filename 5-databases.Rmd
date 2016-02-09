@@ -2,16 +2,13 @@
 title: 'Obtaining Patent Data: Patent Databases'
 output: html_document
 published: no
-tags:
+tags: 
 - free patent databases
 - free patent data
-- python patent
-- patent API
-- patents
 layout: post
 ---
 
-This article provides a quick overview of some of the main sources of free patent data. It is intended for quick reference and points to some free tools for accessing patent databases that you may not be familiar with.  
+This chapter provides a quick overview of some of the main sources of free patent data. It is intended for quick reference and points to some free tools for accessing patent databases that you may not be familiar with.  
 
 It goes without saying that getting access to patent data in the first place is fundamental to patent analysis. There are quite a few free services out there and we will highlights some of the important ones. Most free sources have particular strengths or weaknesses such as the number of records that can be downloaded, the data fields that can be queried, the format the data comes back in or how `clean` data is in terms of the hours required to prepare for analysis. We won't go into all of that but will provide the odd pointer.
 
@@ -103,7 +100,7 @@ Also worth mentioning is the Landon IP [Intellogist](http://www.intellogist.com/
 
 ###Tools for Accessing Patent Data
 
-In closing this article we will highlight a couple of tools for accessing patent data, typically using APIs and Python. We will come back to this later and are working to try this approach in R. 
+In closing this chapter we will highlight a couple of tools for accessing patent data, typically using APIs and Python. We will come back to this later and are working to try this approach in R. 
 
 **12. [Patent2Net](https://github.com/Patent2net/Patent2Net) in Python**
 
@@ -119,15 +116,11 @@ A Python client for OPS access developed by Gsong and freely available on GitHub
 
 **14. [Fung Institute Patent Server](https://github.com/funginstitute/patentserver) for USPTO data in JSON**
 
-Researchers at the Fung Institute have also been active in developing open source resources for accessing and working with patent data. We highlight `patentserver` but it is worth checking out other resources in the repository such as [patentprocessor](https://github.com/funginstitute), a set of Python scripts for processing USPTO bulk download data.
+Researchers at the Fung Institute have also been active in developing open source resources for accessing and working with patent data. We highlight `patentserver` but it is worth checking out other resources in the repository such as [patentprocessor](https://github.com/funginstitute), a set of Python scripts for processing USPTO bulk download data. Note that development of these tools no longer appears to be active. 
 
-![_config.yml](images/tools/funginstitute:patentserver.png)
+![_config.yml](images/tools/funginstitutepatentserver.png)
 
 ##Round Up
 
-That should be more than enough to get started with patent data and hopefully adds some useful pieces of information for long term patent professionals. Please feel welcome to add comments and suggestions on important free resources. 
+That should be more than enough to get started with patent data and hopefully adds some useful pieces of information for long term patent professionals. Please feel welcome to add comments and suggestions on important free resources to the online version of the Manual. 
 
-###Learn More
-
-- Visit the [Github project page](http://poldham.github.io/)
-- Access materials in the repository directly and add your own [here](https://github.com/poldham/opensource-patent-analytics)
