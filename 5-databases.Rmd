@@ -106,6 +106,14 @@ One that is more for patent statisticians. The OECD has invested a lot of effort
 
 Along the same lines the US National Bureau of Economic Research [NBER US Patent Citations Data File](http://www.nber.org/patents/) is an important resource. 
 
+**12 [EPO World Patent Statistical Database](https://www.epo.org/searching-for-patents/business/patstat.html)
+
+The most important database for statistical use is the EPO World Patent Statistical Database (PATSTAT) and contains around 90 million records. PATSTAT is not free and costs 1250 Euro for a year (two editions) or 630 Euro for a single edition. The main barrier to using PATSTAT is the need to run and maintain a +200 Gigabyte database. However, there is also an online version of PATSTAT that is free for the first two months if you wish to try it by signing up for the trial (knowledge of SQL required).
+
+![_config.yml](images/tools/patstat.png)
+
+For users seeking to load PATSTAT into a MySQL database Simone Mainardi provides the following [code on Github](https://github.com/simonemainardi/load_patstat). 
+
 **12. Other data sources**
 
 A number of companies provide access to patent data, typically with tiered access depending on your needs and budget. Examples include [Thomson Innovation](https://www.thomsoninnovation.com/login), [Questel Orbit](https://www.questel.com/index.php/en/), [STN](http://www.stn-international.de/index.php?id=123), and [PatBase](https://www.patbase.com/login.asp). We will not be focusing on these services but we will look at the use of data tools to work with data from services such as Thomson Innovation. 
