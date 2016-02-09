@@ -14,7 +14,7 @@ It goes without saying that getting access to patent data in the first place is 
 
 **1. [espacenet](http://worldwide.espacenet.com/?locale=en_EP)**
 
-The best known free patent database from the European Patent Office.
+Probably the best known free patent database from the European Patent Office.
 
 ![_config.yml](images/tools/Espacenet.png)
 
@@ -36,7 +36,7 @@ The developer portal allows you to test your API queries and is recommended.
 
 **4. [Patentscope](https://patentscope.wipo.int/search/en/search.jsf)**
 
-The WIPO Patentscope database provides access to Patent Cooperation Treaty data including downloads of a selection of fields (upto 10,000 records), a very useful [search expansion translation tool](https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true), and [translation](https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en).  
+The WIPO Patentscope database provides access to Patent Cooperation Treaty data including downloads of a selection of fields (up to 10,000 records), a very useful [search expansion translation tool](https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true), and [translation](https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en).  
 
 ![_config.yml](images/tools/simplesearchresultspizza.png)
 
@@ -48,37 +48,57 @@ Obtaining [sequence data from Patentscope](https://patentscope.wipo.int/search/e
 
 ![_config.yml](images/tools/googlepatents_2015-0517_14-09-22.png)
 
-The [Google Patent Search API](https://developers.google.com/patent-search/terms) has been deprecated. Access through the Google Custom Search API with the API flag for patents [reported](http://stackoverflow.com/questions/15028166/python-module-for-searching-patent-databases-ie-uspto-or-epo) to be `&tbm=pts` with example code for using the API in Python. We will come back to this in another post.
+The [Google Patent Search API](https://developers.google.com/patent-search/terms) has been deprecated. Access through the Google Custom Search API with the API flag for patents [reported](http://stackoverflow.com/questions/15028166/python-module-for-searching-patent-databases-ie-uspto-or-epo) to be `&tbm=pts` with example code for using the API in Python. 
 
-**6. [Google USPTO Bulk download](https://www.google.com/googlebooks/uspto.html)**
+In the free version of the Google Custom Search API data retrieval is limited and the patent field headings are unclear (that is they use non-standard names). For free patent analytics, Google Custom Search is presently of very limited use. 
+
+**6. [Google Prior Art Finder](https://www.google.com/patents/related)**
+
+The Google Prior Art Finder is a relatively recent development that allows you to enter search terms or patent numbers and to view and export results.
+
+![_config.yml](images/tools/google_priorart1.png)
+
+The results include a Top Ten and are broken down into sections including Google Scholar, Patents etc. 
+
+![_config.yml](images/tools/google_priorart2.png)
+
+The Export button will export the top ten results for each section in a .csv file. 
+
+![_config.yml](images/tools/google_priorart3.png)
+
+It is possible to load more results for a section (e.g. see More Patent Results at the bottom of the results) and then export them (e.g. 20 patent documents rather than 10). In a test we managed to export 140 patent results but this could rapidly become laborious. An additional issue is that the data will need transposing. At the time of writing we had not identified an API route to Prior Art Finder. 
+
+**7. [Google USPTO Bulk download](https://www.google.com/googlebooks/uspto.html)**
 
 The [USPTO patent databases](http://patft.uspto.gov) may be archaic but you can download the entire US collection from the [Google USPTO Bulk download service](https://www.google.com/googlebooks/uspto-patents.html). 
 
 ![_config.yml](images/tools/USPTObulk.png)
 
-It is a fantastic service, and an example to patent offices everywhere on what can be done with patent data. If you have a good broadband connection and the hard drive space, it is quite good fun to suddenly have access to millions of patent records. We used the service to text mine the collection for millions of biological species names as reported [here](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078737).
+It is a fantastic service, and an example to patent offices everywhere on freeing up patent data. If you have a good broadband connection and the hard drive space, it is quite good fun to suddenly have access to millions of patent records. The authors used the service to text mine the collection for millions of biological species names as reported [here](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078737).
 
 ![_config.yml](images/tools/USPTOGrant.png)
 
-**7. [The Lens](https://www.lens.org/lens/)**
+However, one important issue to note is that the XML delimiting individual documents is not always well demarcated. This means that any code that will work for one bulk set of files may fail on another set. While it is possible to address this, be prepared to spend time working on this and/or seek assistance from a professional programmer. For an insight into these issues see this [Stackoverflow discussion](http://stackoverflow.com/questions/25107557/parseing-xml-by-r-always-return-xml-declaration-error) on parsing the data in R. 
+
+**8. [The Lens](https://www.lens.org/lens/)**
 
 Previously known as the Patent Lens this is a well designed site with quite a few visualisation options and access to sequence data. It is possible to share data but not, as far as I can work out, to export it. That seriously limits this site for patent analysis purposes unless you rely on their internal tools.
 
 ![_config.yml](images/tools/Lens_2015-0517_14-19-26.png)
 
-**8. [Free Patents Online](http://www.freepatentsonline.com)**
+**9. [Free Patents Online](http://www.freepatentsonline.com)**
 
 Sign up for a free account for enhanced access and to save and download data. It has been around quite a while now and while the download options are limited we really rather like it.
 
 ![_config.yml](images/tools/Freepatentsonline2015-03-26\ 16-26-13.png)
 
-**9. [DEPATISnet](http://www.dpma.de/english/service/e-services/depatisnet/)**
+**10. [DEPATISnet](http://www.dpma.de/english/service/e-services/depatisnet/)**
 
 We are not covering national databases. However, the patent database of the German Patent and Trademark Office struck us as potentially very useful. It allows for searches in English and German and has extensive coverage of international patent data, including the China, EP, US and PCT collections. The coverage details are [here](https://depatisnet.dpma.de/DepatisNet/depatisnet?action=datenbestand). Worth experimenting with. 
 
 ![_config.yml](images/tools/DEPATISnet_13-53-19.png)
 
-**10. [OECD Patent Databases](http://www.oecd.org/sti/inno/oecdpatentdatabases.htm)**
+**11. [OECD Patent Databases](http://www.oecd.org/sti/inno/oecdpatentdatabases.htm)**
 
 One that is more for patent statisticians. The OECD has invested a lot of effort into developing patent indicators and resources including citations, the Harmonised Applicants names database [HAN database](http://www.oecd.org/sti/inno/43846611.pdf), mapping through the [REGPAT database](http://www.oecd.org/sti/inno/40794372.pdf) among other resources that are available free of charge. 
 
@@ -86,7 +106,7 @@ One that is more for patent statisticians. The OECD has invested a lot of effort
 
 Along the same lines the US National Bureau of Economic Research [NBER US Patent Citations Data File](http://www.nber.org/patents/) is an important resource. 
 
-**11. Other data sources**
+**12. Other data sources**
 
 A number of companies provide access to patent data, typically with tiered access depending on your needs and budget. Examples include [Thomson Innovation](https://www.thomsoninnovation.com/login), [Questel Orbit](https://www.questel.com/index.php/en/), [STN](http://www.stn-international.de/index.php?id=123), and [PatBase](https://www.patbase.com/login.asp). We will not be focusing on these services but we will look at the use of data tools to work with data from services such as Thomson Innovation. 
 
@@ -102,19 +122,19 @@ Also worth mentioning is the Landon IP [Intellogist](http://www.intellogist.com/
 
 In closing this chapter we will highlight a couple of tools for accessing patent data, typically using APIs and Python. We will come back to this later and are working to try this approach in R. 
 
-**12. [Patent2Net](https://github.com/Patent2net/Patent2Net) in Python**
+**13. [Patent2Net](https://github.com/Patent2net/Patent2Net) in Python**
 
 A tool to access and process the data from the European Patent Office OPS service. 
 
 ![_config.yml](images/tools/Patent2Net_GitHub_2015-0517_15-49-58.png)
 
-**13. [Python EPO OPS Client](https://github.com/55minutes/python-epo-ops-client) by Gsong**
+**14. [Python EPO OPS Client](https://github.com/55minutes/python-epo-ops-client) by Gsong**
 
 A Python client for OPS access developed by Gsong and freely available on GitHub. Used in Patent2Net above. 
 
 ![_config.yml](images/tools/python-epo-ops-client-GitHub_2015-0517_15-53-34.png)
 
-**14. [Fung Institute Patent Server](https://github.com/funginstitute/patentserver) for USPTO data in JSON**
+**15. [Fung Institute Patent Server](https://github.com/funginstitute/patentserver) for USPTO data in JSON**
 
 Researchers at the Fung Institute have also been active in developing open source resources for accessing and working with patent data. We highlight `patentserver` but it is worth checking out other resources in the repository such as [patentprocessor](https://github.com/funginstitute), a set of Python scripts for processing USPTO bulk download data. Note that development of these tools no longer appears to be active. 
 
