@@ -5,17 +5,17 @@ published: yes
 layout: post
 ---
 
-Cleaning patent data is one of the most challenging and time consuming tasks involved in patent analysis. In this article we will cover. 
+Cleaning patent data is one of the most challenging and time consuming tasks involved in patent analysis. In this chapter we will cover. 
 
 1. Basic data cleaning using Open Refine
 2. Separating a patent dataset on applicant names and cleaning the names.
 3. Exporting a dataset from Open Refine at different stages in the cleaning process.
 
-[Open Refine](http://openrefine.org) is an open source tool for working with all types of messy data. It started life as Google Refine but has since migrated to Open Refine. It is a programme that runs in a browser on your computer but does not require an internet connection. It is a key tool in the open source patent analysis toolkit and includes extensions and the use of custom code for particular custom tasks. In this article we will cover some of the basics that are most relevant to patent analysis and then move on to more detailed work to clean patent applicant names. 
+[Open Refine](http://openrefine.org) is an open source tool for working with all types of messy data. It started life as Google Refine but has since migrated to Open Refine. It is a programme that runs in a browser on your computer but does not require an internet connection. It is a key tool in the open source patent analysis tool kit and includes extensions and the use of custom code for particular custom tasks. In this article we will cover some of the basics that are most relevant to patent analysis and then move on to more detailed work to clean patent applicant names. 
 
 The reason that patent analysts should use Open Refine is that it is the easiest to use and most efficient free tool for cleaning patent data without programming knowledge. It is far superior to attempting the same cleaning tasks in Excel or Open Office. The terminology that is used can take some getting used to, but it is possible to develop efficient workflows for cleaning and reshaping data using Open Refine and to create and reuse custom codes needed for specific tasks. 
 
-In this article we use Open Refine to clean up a raw dataset from WIPO Patentscope containing nearly 10,000 raw records that make some kind of reference to the word `pizza` in the whole text. To follow this article using one of our training sets, download it from [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium/pizza_medium.csv?raw=true) or use your own dataset. 
+In this chapter we use Open Refine to clean up a raw dataset from WIPO Patentscope containing nearly 10,000 raw records that make some kind of reference to the word `pizza` in the whole text. To follow this chapter using one of our training sets, download it from the Github repository [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium/pizza_medium.csv?raw=true) or use your own dataset. 
 
 ##Install Open Refine
 
@@ -51,7 +51,7 @@ Open Refine is an application that lives on your computer but runs in a browser.
 
 ###2. Open Refine works on columns. 
 
-At the top of each column is a pull down menu. Be ready to use these menus quite a lot. In particular, you will often use the `Edit cells > Common tranforms` as shown below for functions such as trimming whitespace.
+At the top of each column is a pull down menu. Be ready to use these menus quite a lot. In particular, you will often use the `Edit cells > Common tranforms` as shown below for functions such as trimming white space.
 
 ![_config.yml](images/openrefine/menu_basics.png)
 
@@ -68,12 +68,11 @@ Hovering over an item inside the facet window brings up a small `edit` button th
 ###4. Custom Facets
 
 The Facet menu below brings up a custom menu with a range of options. Selecting `Custom text facet` (see below) brings up a pop up that allows for the use of code in [Open Refine Expression Language (GREL)](https://github.com/OpenRefine/OpenRefine/wiki/GREL-Functions) to perform tasks not covered by the main menu items. This language is quite simple and can range from short snippets for finding and replacing text to more complex functions that can be reused in future. We will demonstrate the use of this function below.   
-
 ![_config.yml](images/openrefine/facet_menu.png)
 
 ###5. Reordering Columns
 
-There are two options for reordering columns. The first is to select the column menu then `Edit column > Move column to beginning`. The second option, shown below, is to select the `All` drop down menu in the first column and then `Edit columns > Re-order/remove columns`. In the pop up menu of fields drag the desired field to the top of the list. In this case we have dragged the priority_date column to the top of the list. It will now appear as the first data column. 
+There are two options for reordering columns. The first is to select the column menu then `Edit column > Move column to beginning`. The second option, shown below, is to select the `All` drop down menu in the first column and then `Edit columns > Re-order/remove columns`. In the pop up menu of fields drag the desired field to the top of the list. In this case we have dragged the `priority_date` column to the top of the list. It will now appear as the first data column. 
 
 ![_config.yml](images/openrefine/reorder_columns.png)
 
@@ -83,11 +82,11 @@ Open Refine keeps track of each action and allows you to go back several steps o
 
 ![_config.yml](images/openrefine/undo_redo.png)
 
-However, it can be important to plan the steps in your clean up operation to avoid problems at later stages. It may help to use a notepad as a checklist (see below). The main issue that can arise is that cleanup moves forward several steps without being completed in an earlier step. In some cases this can require returning to that earlier step, restarting and repeating earlier steps. As you become more familiar points it will be easier to work out an appropriate sequence for your workflow. 
+However, it can be important to plan the steps in your clean up operation to avoid problems at later stages. It may help to use a notepad as a checklist (see below). The main issue that can arise is where cleanup moves forward several steps without being fully completed in an earlier step. In some cases this can require returning to that earlier step, restarting and repeating earlier steps. As you become more familiar with Open Refine it will be easier to work out an appropriate sequence for your workflow. 
 
 ###7. Exporting 
 
-When a clean up exercise is completed a file can be exported in a variety for formats. When working with patent data expect to create more than one file (e.g. core, applicants, inventors, IPC) to allow for analysis of aspects of the data in other tools. In this article we will create two files. 
+When a clean up exercise is completed a file can be exported in a variety for formats. When working with patent data expect to create more than one file (e.g. core, applicants, inventors, IPC) to allow for analysis of aspects of the data in other tools. In this chapter we will create two files. 
 
 1. A cleaned version of the original data
 2. An applicants file that separates the data by each applicant. 
@@ -103,7 +102,7 @@ When working with Open Refine we will typically be working on one column at a ti
 1. Make sure you have a back up of the original file. Creating a `.zip` file and marking it with the name `raw` can help to preserve the original. 
 2. Open and save a text file as a `code book` to write down the steps taken in cleaning the data (e.g. pizza_codebook.txt). 
 3. Regularise characters (e.g. title, lowercase, uppercase).
-4. Remove leading and trailing whitespace.
+4. Remove leading and trailing white space.
 5. Address encoding and related problems.
 
 Additional actions:
@@ -115,11 +114,11 @@ We will generally approach these tasks in each column and steps 6 and 7 will not
 
 ###1. Changing case
 
-The first column in our dataset is the publication number. To inspect what is happening and needs to be cleaned in this column we will first select the column menu and choose `text facet` from the dropdown. This will generate the side menu panel that we can see below containing the data. We can then inspect the column for problems. 
+The first column in our Patentscope pizza dataset is the publication number. To inspect what is happening and needs to be cleaned in this column we will first select the column menu and choose `text facet` from the dropdown. This will generate the side menu panel that we can see below containing the data. We can then inspect the column for problems. 
 
 ![_config.yml](images/openrefine/cleaning_pubno_createfacet.png)
 
-When we scroll down the side panel we can see that some publication numbers have a lowercase country code (in this case `ea` rather than `EA` for Eurasian Patent Organization using the [WIPO country codes](http://www.wipo.int/pct/guide/en/gdvol1/annexes/annexk/ax_k.pdf)). To address this we select the column menu `Edit cells > Common transforms > to Uppercase`.
+When we scroll down the side panel we can see that some publication numbers have a lowercase country code (in this case `ea` rather than `EA` for Eurasian Patent Organization using the [WIPO standardized country codes](http://www.wipo.int/pct/guide/en/gdvol1/annexes/annexk/ax_k.pdf)). To address this we select the column menu `Edit cells > Common transforms > to Uppercase`.
 
 ![_config.yml](images/openrefine/cleaning_pubno_totitlecase.png)
 
@@ -131,11 +130,11 @@ For the other text columns it is sensible to repeat the common transformations s
 
 ###3. Remove leading and trailing whitespace
 
-To remove leading and trailing white space in a column we select `Edit cells > Common transforms > Trim` leading and trailing whitespace across the columns. 
+To remove leading and trailing white space in a column we select `Edit cells > Common transforms > Trim` leading and trailing white space across the columns. 
 
 ![_config.yml](images/openrefine/title_trailingwhitespace.png)
 
-Note that following the splitting of concatenated cells with multiple entries such as the applicants and the inventors fields it is generally a good idea to repeat the trim exercise when the process is complete to avoid potential leading white space at the start of the new name entries. 
+Note that following the splitting of concatenated cells with multiple entries such as the applicants and the inventors fields it is a good idea to repeat the trim exercise when the process is complete to avoid potential leading white space at the start of the new name entries. 
 
 ###4. Add Columns
 
@@ -155,13 +154,13 @@ We can then rename these columns using the edit `Edit Column > Rename this colum
 
 The [Recipes](https://github.com/OpenRefine/OpenRefine/wiki/Recipes) section of the documentation provides helpful tips and example code for dealing with encoding and related problems that are reproduced here:
 
-1. corrupted characters. This arises from aggregation of data from different sources. In Patentscope the data is converted to UTF8. However, if problems are encountered select `Edit cells > Transform` and try entering the following
+1. corrupted characters. This arises from aggregation of data from different sources. In Patentscope the data is converted to UTF8. However, if problems are encountered select `Edit cells > Transform` and try entering the following.
 
 ```{r eval=FALSE}
 value.reinterpret("utf-8")
 ```
 
-It may be necessary to explore and test other sets which can be identified [here](http://java.sun.com/j2se/1.5.0/docs/guide/intl/encoding.doc.html)
+It may be necessary to explore and test other sets which can be identified [here](http://java.sun.com/j2se/1.5.0/docs/guide/intl/encoding.doc.html).
 
 2. Escape html/XML characters e.g. &amp
 
@@ -173,9 +172,9 @@ value.unescape("html").unescape("xml")
 
 3. Question marks
 
-Question marks often show up for characters that cannot be represented and effectively displays encoding problems. In addition non-breaking spaces may be represented as &nbsp (Unicode(16)). To find a Unicode value go to `Edit cells > Transform` and then enter unicode(value) which will transform all the characters to unicode numbers. From there you can look up the problem.  
+Question marks often show up for characters that cannot be represented are a sign of encoding problems. In addition non-breaking spaces may be represented as `&nbsp` (Unicode(16)). To find a Unicode value go to `Edit cells > Transform` and then enter unicode(value) which will transform all the characters to unicode numbers. From there you can look up the problem.  
 
-A quick fix is proposed that may work in some circumstances
+A quick fix is proposed in the documentation that may work in some circumstances.
 
 ```{r eval=FALSE}
 split(escape(value,'xml'),"&#160;")[0]
@@ -185,11 +184,11 @@ Within this particular dataset, we found that these quick tips did not work (pre
 
 ![_config.yml](images/openrefine/replace_encoding.png)
 
-We might note that this is not a very satisfactory solution because it requires inspection of the dataset to identify the specific character problems and then replacing the value. That will be time consuming. 
+This is not a very satisfactory solution because it requires inspection of the dataset to identify the specific character problems and then replacing the value. That will be time consuming. 
 
 ###6. Reformatting dates
 
-One problem we may encounter is that the standard date definition on patent documents (e.g. 21.08.2009) may not be recognised as a date field in our analysis software because dates can be ambiguous from the perspective of software code. For example, how should 08/12/2009 or 12/08/2009 be interpreted? Alternatively, as in this case, the decimal points may not be correctly interpreted as signifying a date in some software (e.g. R). We might anticipate this and transform the data into a more recognisable form such as 21/08/2009. A very simple way to do this is by using a replace function. In this case we select the menu for the publication_date field and then `Edit cells > Transform`. 
+One problem we may encounter is that the standard date definition on patent documents (e.g. 21.08.2009) may not be recognised as a date field in our analysis software because dates can be ambiguous from the perspective of software code. For example, how should 08/12/2009 or 12/08/2009 be interpreted? Alternatively, as in this case, the decimal points may not be correctly interpreted as signifying a date in some software (e.g. R). We might anticipate this and transform the data into a more recognisable form such as 21/08/2009. A very simple way to do this is by using a replace function. In this case we select the menu for the `publication_date` field and then `Edit cells > Transform`. 
 
 ![_config.yml](images/openrefine/transform.png)
 
@@ -226,20 +225,19 @@ Filling blank cells with a value (NA for Not Available) to prevent calculation p
 ![_config.yml](images/openrefine/blank_na_facets.png)
 
 Note that this is somewhat time consuming (until a more rapid method is found) but has the benefit of being accurate. It is generally faster to open the file in Excel (or Open Office) and use find and replace with the find box left blank and NA in the replace field across the data table. For that reason, blank cells should not appear in the dataset you are using in this article. However, in later steps below we will be generating blank cells by splitting the applicant and inventor field. It is therefore important to know this procedure.  
-
 ##Rename the columns
 
 At this stage we have a set of columns that are mixed between the original sentence case and the additions in lower case with no spaces such as `publication_number`. This is a matter of personal preference but it is generally a good idea to regularise the case of all columns to make them easy to remember. In this case we will also add the word `original` to the columns to distinguish between those created by cleaning the data and those we have created.  
 
 ##Exporting the Data
 
-When we are happy that we have worked through the core cleaning steps. It is important to do this before the steps described below because it preserves a copy of the core dataset that can be used for separation (or splitting activities) on applicants, inventors, IPC etc. during the next steps. It is important that this `clean` dataset is as clean as is reasonably possible before moving on. The reason for this is that ***any noise or problems will multiply*** when we move on to the next steps. This may require a major rerun of the cleaning steps on later files created for applicants or inventors. Therefore make sure that you are happy that the data is as clean as is reasonably possible at this stage. Then choose export from the menu and the desired format (preferably `.csv` or `.tab` if using analytics tools later). 
+When we are happy that we have worked through the core cleaning steps it is a good idea to export the new core dataset. It is important to do this before the steps described below because it preserves a copy of the core dataset that can be used for separation (or splitting activities) on applicants, inventors, IPC etc. during the next steps. It is important that this `clean` dataset is as clean as is reasonably possible before moving on. The reason for this is that ***any noise or problems will multiply*** when we move on to the next steps. This may require a major rerun of the cleaning steps on later files created for applicants or inventors. Therefore make sure that you are happy that the data is as clean as is reasonably possible at this stage. Then choose export from the menu and the desired format (preferably `.csv` or `.tab` if using analytics tools later). 
 
 ![_config.yml](images/openrefine/export_core.png)
 
 ##Splitting Applicants
 
-This article was inspired by a [very useful tutorial](http://www.patinformatics.com/blog/patent-assignee-cleanup-using-google-refine-open-refine-text-facets-and-clustering/) on cleaning assignee names with Google Refine by Anthony Trippe. Anthony is also the author of the forthcoming WIPO Guidelines for the Preparation of Patent Landscape Reports and the [Patentinformatics LLC](http://www.patinformatics.com) website has played a pioneering role in promoting patent analytics. We will take this example forward using the our pizza patent dataset so that it can be visualised in a range of tools. If you have not done so already, you can download the dataset [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium/pizza_medium.csv?raw=true).  
+This article was inspired by a [very useful tutorial](http://www.patinformatics.com/blog/patent-assignee-cleanup-using-google-refine-open-refine-text-facets-and-clustering/) on cleaning assignee names with Google Refine by Anthony Trippe. Anthony is also the author of the forthcoming [WIPO Guidelines for Preparing Patent Landscape Reports](http://www.wipo.int/patentscope/en/programs/patent_landscapes/) and the [Patentinformatics LLC](http://www.patinformatics.com) website has played a pioneering role in promoting patent analytics. We will take this example forward using the our sample pizza patent dataset so that it can be visualised in a range of tools. If you have not done so already, you can download the dataset [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium/pizza_medium.csv?raw=true).  
 
 We actually have two options here and we will go through them so that you can work out your needs in a particular situation. Note that you can use Undo in Google Refine to go back to the point immediately before you tested these approaches. However, if you have followed the data cleaning steps above, make sure that you have already exported a copy of the main dataset. 
 
@@ -293,14 +291,14 @@ What we will see (with Applicants moved to the first column by selecting `Applic
 
 The cluster button will trigger a set of six clean up algorithms with user choices along the way. It is well worth reading the [documentation](https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth) on these steps to decide what will best fit your needs in future. These cleaning steps proceed from the strict to the lax in terms of matching criteria. The following is a brief summary of the details provided in the documentation page:
 
-1. Fingerprinting. This method is the least likely in the set to produce false positives (and that is particularly important for East Asian names in patent data). It involves a series of steps including removing trailing whitespace, using all lowercase, removing punctuation and control characters, splitting into tokens on white space, splitting and joining and normalising to ASCII. 
+1. Fingerprinting. This method is the least likely in the set to produce false positives (and that is particularly important for East Asian names in patent data). It involves a series of steps including removing trailing white space, using all lowercase, removing punctuation and control characters, splitting into tokens on white space, splitting and joining and normalising to ASCII. 
 2. N-Gram Fingerprint. This is similar but uses n-grams (a sequence of characters or multiple sequences of characters) that are chunked, sorted and rejoined and normalised to ASCII text. The documentation highlights that this can produce more false positives but is food for finding clusters missed by fingerprinting. 
 3. Phonetic Fingerprint. This transforms tokens into the way they are pronounced and produces different fingerprints to methods 2 & 3. 
 4. Nearest Neighbour Methods. This is a distance method but can be very very slow. 
 5. Levenshtein Distance. This famous algorithm measures the minimal number of edits that are required to change one string into another (and for this reason is widely known as edit distance). Typically, this will spot typological and spelling errors not spotted by the earlier approaches. 
 6. PPM a particular use of Kolmogorov complexity as described in this [article](http://arxiv.org/abs/cs/0111054) that is implemented in Open Refine as `Prediction by Partial Matching`. 
 
-It is important to gain an insight into these methods because they may affect the results you receive. In particular, caution is required on East Asian names where cultural naming traditions produce lots false positive matches on the same name for persons who are actually distinct persons (synonyms or "lumping" in the literature). This can have very dramatic impacts on the results of patent analysis for inventor names because it will treat all persons sharing the name `Smith, John` or `Wang, Wei` as the same person, when in practice they are multiple individual people. 
+It is important to gain an insight into these methods because they may affect the results you receive. In particular, caution is required on East Asian names where cultural naming traditions produce a lot of false positive matches on the same name for persons who are actually distinct persons (synonyms or "lumping" in the literature). This can have very dramatic impacts on the results of patent analysis for inventor names because it will treat all persons sharing the name `Smith, John` or `Wang, Wei` as the same person, when in practice they are multiple individual people. 
 
 We will now walk through each algorithm to view the results. 
 
@@ -324,7 +322,7 @@ To see these potential problems in action try reducing the N-gram size to 1. At 
 
 This measure is too lax and is grouping together companies that should not be grouped. In contrast increasing the N-gram value to 3 or 4 will tighten the cluster. We will select all on N-gram 2 and proceed to the next step. 
 
-At this point it is worth noting that the original 9,368 clusters have been reduced to 7,875 and if we sort on the count in the main window then Google is starting to emerge as the top applicant. 
+At this point it is worth noting that the original 9,368 clusters have been reduced to 7,875 and if we sort on the count in the main window then Google is starting to emerge as the top applicant across our set of 10,000 records. 
 
 ###Phonetic Fingerprint (Metaphone 3) clustering 
 
@@ -364,12 +362,12 @@ In practice, the cleaning process will generate a new data table for export that
 
 It is also important to bear in mind that the dataset that has been created contains many more rows than the original version. Prior to exporting we would therefore suggest two steps:
 
-1. Rerun Common transforms > to title case, to regularise any names that may have been omitted in the first round. 
+1. Rerun Common transforms > to title case, to regularise any names that may have been omitted in the first round and rerun trim whitespace for any spaces arising from the splitting of names. 
 2. Rerun facets on each column, select blank at the end of the facet panel and fill with NA. Alternatively, do this immediately following export. 
 
 ##Round Up
 
-In this article we have covered the main features of basic data cleaning using Open Refine. As should now be clear, while it requires an investment in familiarisation it is a powerful tool for cleaning up small to medium sized patent datasets such as our 10,000 pizza patent records. However, a degree of patience, caution and forward planning is required to create an effective workflow using this tool. It is likely that further investments of time (such as the use of regular expressions in GREL) would improve cleaning tasks prior to analysis. 
+In this chapter we have covered the main features of basic data cleaning using Open Refine. As should now be clear, while it requires an investment in familiarisation it is a powerful tool for cleaning up small to medium sized patent datasets such as our 10,000 pizza patent records. However, a degree of patience, caution and forward planning is required to create an effective workflow using this tool. It is likely that further investments of time (such as the use of regular expressions in GREL) would improve cleaning tasks prior to analysis. 
 
 Open Refine is also probably the easiest to use free tool for separating and cleaning applicant and inventor names without programming knowledge. For that reason alone, while noting the caveats highlighted above, Open Refine is a very valuable tool in the open source patent analytics toolbox. 
 
