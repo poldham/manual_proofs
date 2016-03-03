@@ -1,6 +1,6 @@
 ---
 title: "Visualising Patent Data in Tableau Public"
-output: html_document
+output: word_document
 published: yes
 layout: post
 ---
@@ -8,7 +8,7 @@ In this article we will be analysing and visualising patent data using Tableau P
 
 Tableau Public is a free version of Tableau Desktop and provides a very good practical introduction to the use of patent data for analysis and visualisation. In many cases Tableau Public will represent the standard that other open source and free tools will need to meet. 
 
-This is a practical demonstration of the use of Tableau in patent analytics. We have created a set of cleaned patent data tables on `pizza patents` that you can download as a .zip file from [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_clean.zip?raw=true) to use during the walkthrough. Details of the cleaning process to reach this stage are provided in the codebook that can be viewed [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_code_book_15052105.txt). The [Open Refine walkthrough](http://poldham.github.io/openrefine-patent-cleaning/) can be used to generate cleaned files very similar to those used in this walkthrough using your own data. You will not need to clean any data using our training set files. 
+This is a practical demonstration of the use of Tableau in patent analytics. We have created a set of cleaned patent data tables on `pizza patents` using a sample of 10,000 records from WIPO Patentscope that you can download as a .zip file from [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_clean.zip?raw=true) to use during the walkthrough. Details of the cleaning process to reach this stage are provided in the codebook that can be viewed [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_code_book_15052105.txt). The [Open Refine walkthrough](http://poldham.github.io/openrefine-patent-cleaning/) can be used to generate cleaned files very similar to those used in this walkthrough using your own data. You will not need to clean any data using our training set files. 
 
 This article will take you through the main features of Tableau Public and the types of analysis and visualisation that can be performed using Tableau. In the process you will be creating something very similar to this [workbook](https://public.tableau.com/profile/wipo.open.source.patent.analytics.manual#!/vizhome/pizzapatents/Overview).
 
